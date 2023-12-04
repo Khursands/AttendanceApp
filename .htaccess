@@ -1,0 +1,8 @@
+RewriteEngine On    # Turn on the rewriting engine
+
+RewriteRule    ^not-found/?$    pages-404.php    [NC,L]    # Handle requests for "not-found"
+
+RewriteRule    ^api/user/add?$    _addUser.php    [NC,L]
+
+
+ErrorDocument 404 /pages-404.php
