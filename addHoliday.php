@@ -1,7 +1,6 @@
 <?php
 
 require "includes/_begin.php";
-require "includes/entities/Holiday.php";
 
 // Check if the required keys are present in the $_POST array
 if (

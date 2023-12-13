@@ -3,15 +3,15 @@
 require "includes/_begin.php";
 
 // Check if the required key "id" is present in the $_POST array
-if (isset($_POST["id"])) 
+if (isset($_GET["id"])) 
 {
-    $id = $_POST["id"];
+    $id = $_GET["id"];
 
     // Perform the read operation
-    $user = GM_HR\UserDAL::loadById($security->conn, $id);
+    $obj = GM_HR\AttendanceDAL::loadById($security->conn, $id);
 
-    if ($user) {
-        GM_HR\Common::jsonSuccess($user);
+    if ($obj) {
+        GM_HR\Common::jsonSuccess($obj);
     } else {
         GM_HR\Common::jsonError("User not found with ID $id");
     }

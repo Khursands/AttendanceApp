@@ -5,19 +5,19 @@ require "includes/_begin.php";
 
 // Check if the required keys are present in the $_POST array
 if (
-    isset($_POST["id"])
+    isset($_POST["Id"])
 ) 
 {
-    $id = $_POST['id'];
+    $id = $_POST['Id'];
 
     if (intval($id) > 0) {
-        GM_HR\HolidayDAL::delete($security->conn, $id);
+        GM_HR\AttendanceDAL::delete($security->conn, $id);
     } 
     else {
         GM_HR\Common::jsonSuccess(array("id not found" => $id));
     }
 
-    GM_HR\Common::jsonSuccess(array("id Deleted Successfuly" => $id));
+    GM_HR\Common::jsonSuccess(array("Id Deleted Successfuly" => $id));
     
 } 
 else {

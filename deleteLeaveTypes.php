@@ -1,18 +1,17 @@
 <?php
 
-require "./includes/_begin.php";
-require "./includes/entities/People.php";
+require "includes/_begin.php";
 
 
 // Check if the required keys are present in the $_POST array
 if (
-    isset($_POST["id"])
+    isset($_POST["ID"])
 ) 
 {
-    $id = $_POST['id'];
+    $id = $_POST['ID'];
 
     if (intval($id) > 0) {
-        GM_HR\UserDAL::delete($security->conn, $id);
+        GM_HR\LeaveTypesDAL::delete($security->conn, $id);
     } 
     else {
         GM_HR\Common::jsonSuccess(array("id not found" => $id));
@@ -23,5 +22,5 @@ if (
 } 
 else {
     // Handle the case when the required keys are not present in the $_POST array
-    GM_HR\Common::jsonError("Missing required POST parameters.");
+    GM_HR\Common::jsonError(array("Missing required POST parameters id=" => $id));
 }

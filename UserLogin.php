@@ -17,43 +17,13 @@ if (!empty($jsonData)) {
 
         // Check if the required keys are present in the decoded JSON data
         if (
-            isset($userPayload["Username"]) &&
-            isset($userPayload["Email"]) &&
-            isset($userPayload["Password"]) &&
-            isset($userPayload["Mobile"]) &&
-            isset($userPayload["Phone"]) &&
-            isset($userPayload["Address"]) &&
-            isset($userPayload["EmploymentStatus"]) &&
-            isset($userPayload["CreatedBy"]) &&
-            isset($userPayload["UpdatedBy"])
-        ) {
+            isset($userPayload["Username"]) && isset($userPayload["Password"])){
             // Create User object and perform operations as before
-            $objUser = new GM_HR\User;
-            $objUser->Username = $userPayload["Username"];
-            $objUser->Email = $userPayload["Email"];
-            $objUser->Password = $userPayload["Password"];
-            $objUser->Mobile = $userPayload["Mobile"];
-            $objUser->Phone = $userPayload["Phone"];
-            $objUser->Address = $userPayload["Address"];
-            $objUser->EmploymentStatus = $userPayload["EmploymentStatus"];
-            $objUser->CreatedBy = $userPayload["CreatedBy"];
-            $objUser->UpdatedBy = $userPayload["UpdatedBy"];
-            $objUser->id = isset($userPayload["id"]) ? $userPayload["id"] : 0;
+            $Username = $userPayload["Username"];
+            $Password = $userPayload["Password"];
 
-            if (intval($objUser->id) > 0) {
-                GM_HR\UserDAL::update($security->conn, $objUser);
-                GM_HR\Common::jsonSuccess(array("Data" => $objUser));
-            } 
-            else {
-                GM_HR\UserDAL::create($security->conn, $objUser);
-                $insertId = $security->conn->insert_id();
-                if ($insertId > 0) {
-                    $objUser->id = $insertId;
-                    GM_HR\Common::jsonSuccess(array("New user Created with id" => $objUser->id));
-                } else {
-                    GM_HR\Common::jsonError("Failed to create a new user. Insert ID is 0.");
-                }
-            }
+            $obj = GM_HR\UserDAL::login($security->conn, $Username, $Password);
+            GM_HR\Common::jsonSuccess(array($obj));
         } else {
             // Handle the case when the required keys are not present in the decoded JSON data
             GM_HR\Common::jsonError("Missing required parameters in the JSON data.");

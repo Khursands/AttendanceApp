@@ -1,7 +1,6 @@
 <?php
 
 require "includes/_begin.php";
-require "includes/entities/Holiday.php";
 
 {
 

@@ -8,7 +8,7 @@ if (isset($_GET["id"]))
     $id = $_GET["id"];
 
     // Perform the read operation
-    $user = GM_HR\HolidayDAL::loadById($security->conn, $id);
+    $user = GM_HR\UserDAL::loadById($security->conn, $id);
 
     if ($user) {
         GM_HR\Common::jsonSuccess($user);
