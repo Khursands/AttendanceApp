@@ -10,6 +10,6 @@ require "includes/_begin.php";
     if ($id) {
         GM_HR\Common::jsonSuccess($id);
     } else {
-        GM_HR\Common::jsonError("User not found with ID $id");
+        GM_HR\Common::jsonError("Users not found");
     }
 } 

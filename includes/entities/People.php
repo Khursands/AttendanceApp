@@ -120,10 +120,10 @@ namespace GM_HR {
                 Logger::log($conn, "UserDAL::delete", "error", $e->getMessage());
             }
         }
-        public static function login($conn, $username, $password) {
+        public static function login($conn, $email, $password) {
             try {
                 // Fetch user by username
-                $sql = "SELECT * FROM user WHERE Username = '" . $conn->escape($username) . "'";
+                $sql = "SELECT * FROM user WHERE Email = '" . $conn->escape($email) . "'";
                 if ($result = $conn->query($sql)) {
                     $user = $result->fetch_assoc();
                     $result->free();
@@ -147,6 +147,18 @@ namespace GM_HR {
                 return false;
             }
         }
+        public static function logout() 
+        {
+            if (isset($_COOKIE['auth_token'])) 
+            {
+                unset($_COOKIE['auth_token']);
+                setcookie('auth_token', '', time() - 3600, '/'); // empty value and old timestamp
+                return true;
+            }
+            // Return success
+            return false;
+        }
+            
     
         private static function generateJwtToken($user) {
             $tokenId = base64_encode(random_bytes(32));
@@ -160,7 +172,7 @@ namespace GM_HR {
                 'sub' => $user['id'],
             ];
         
-            $secretKey = 'your_secret_key'; // Change this to a secure secret key
+            $secretKey = 'd1cd453f02639be7540186ec35cf39a1e99f5027'; // Change this to a secure secret key
             $algorithm = 'HS256'; // Use a secure algorithm like HS256
         
             // Use the correct namespace for the JWT class
