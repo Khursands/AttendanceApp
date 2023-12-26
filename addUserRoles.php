@@ -1,6 +1,7 @@
 <?php
+
 require "includes/_begin.php";
-require "includes/entities/LeaveTypes.php";
+require "includes/entities/UserRoles.php";
 
 // Get the raw JSON data from the request body
 $jsonData = file_get_contents("php://input");
@@ -16,19 +17,19 @@ if (!empty($jsonData)) {
 
         // Check if the required keys are present in the decoded JSON data
         if (
-            isset($userPayload["type"])
+            isset($userPayload["Role"]) 
         ) {
             // Create User object and perform operations as before
-            $objUser = new GM_HR\LeaveTypes;
-            $objUser->type = $userPayload["type"];
+            $objUser = new GM_HR\UserRoles;
+            $objUser->Role = $userPayload["Role"];
             $objUser->ID = isset($userPayload["ID"]) ? $userPayload["ID"] : 0;
 
             if (intval($objUser->ID) > 0) {
-                GM_HR\LeaveTypesDAL::update($security->conn, $objUser);
+                GM_HR\UserRolesDAL::update($security->conn, $objUser);
                 GM_HR\Common::jsonSuccess(array("Data" => $objUser));
             } 
             else {
-                GM_HR\LeaveTypesDAL::create($security->conn, $objUser);
+                GM_HR\UserRolesDAL::create($security->conn, $objUser);
                 $insertId = $security->conn->insert_id();
                 if ($insertId > 0) {
                     $objUser->ID = $insertId;
@@ -46,3 +47,31 @@ if (!empty($jsonData)) {
         GM_HR\Common::jsonError("Invalid JSON data format. 'data' key is missing.");
     }
 } 
+
+else{
+    if (
+    isset($_POST["Role"]) 
+) 
+{
+    $obj = new GM_HR\UserRoles;
+    $obj->Status = $_POST["Role"];
+    $obj->ID = isset($_POST["ID"]) ? $_POST["ID"] : 0;
+
+    if (intval($obj->ID) > 0) {
+        GM_HR\UserRolesDAL::update($security->conn, $obj);
+        GM_HR\Common::jsonSuccess(array("Data Updated" => $obj));
+
+    } 
+    else {
+        GM_HR\UserRolesDAL::create($security->conn, $obj);
+        $obj->ID = $security->conn->insert_id();
+        GM_HR\Common::jsonSuccess(array("New UserRole Created" => $obj));
+
+    }   
+} 
+else {
+    // Handle the case when the required keys are not present in the $_POST array
+    GM_HR\Common::jsonError("Missing required POST parameters.");
+}
+
+}

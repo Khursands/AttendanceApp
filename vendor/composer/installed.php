@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-backend',
-        'version' => 'dev-backend',
-        'reference' => 'aebeb10df6de2561c41c1520529375be1a430fd6',
+        'pretty_version' => 'dev-Khursand',
+        'version' => 'dev-Khursand',
+        'reference' => '47e4fdcaf26ddb180f36c2218bfbdb1875b2e232',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-backend',
-            'version' => 'dev-backend',
-            'reference' => 'aebeb10df6de2561c41c1520529375be1a430fd6',
+            'pretty_version' => 'dev-Khursand',
+            'version' => 'dev-Khursand',
+            'reference' => '47e4fdcaf26ddb180f36c2218bfbdb1875b2e232',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

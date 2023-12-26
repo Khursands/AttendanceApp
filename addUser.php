@@ -19,9 +19,9 @@ if (!empty($jsonData)) {
         if (
             isset($userPayload["Username"]) &&
             isset($userPayload["Email"]) &&
-            isset($userPayload["Password"]) &&
-            isset($userPayload["Mobile"]) &&
             isset($userPayload["Phone"]) &&
+            isset($userPayload["Mobile"]) &&
+            isset($userPayload["Password"]) &&
             isset($userPayload["Address"]) &&
             isset($userPayload["EmploymentStatus"]) &&
             isset($userPayload["CreatedBy"]) &&

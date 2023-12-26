@@ -1,22 +1,21 @@
 <?php
 namespace GM_HR{
 
-class Holiday {
+class UserRoles {
 
      public $ID = null;
-     public $Date = null;
-     public $Description = null;
+     public $Role = null;
  }
 
- class HolidayDAL {
+ class UserRolesDAL {
 
      public static function loadAll($conn) {
          try {
              $list = [];
 
-             if ($result = $conn->query("SELECT * FROM holiday")) {
+             if ($result = $conn->query("SELECT * FROM userroles")) {
                  while ($row = $result->fetch_assoc()) {
-                     $obj = new Holiday;
+                     $obj = new UserRoles;
 
                      // Populate the Leavetypes object with data from the database
                      // Assuming column names match property names in the User class
@@ -31,13 +30,13 @@ class Holiday {
 
              return $list;
          } catch (\Exception $e) {
-             Logger::log($conn, "LeaveStatusDAL::loadAll", "error", $e->getMessage());
+             Logger::log($conn, "UserRolesDAL::loadAll", "error", $e->getMessage());
          }
      }
 
      public static function loadById($conn, $id) {
          try {
-             if ($result = $conn->query("SELECT * FROM holiday WHERE ID=" . $conn->escape($id))) {
+             if ($result = $conn->query("SELECT * FROM UserRoles WHERE ID=" . $conn->escape($id))) {
                  $objUser = new Holiday;
 
                  while ($row = $result->fetch_assoc()) {
@@ -52,34 +51,29 @@ class Holiday {
                  return $objUser;
              }
          } catch (\Exception $e) {
-             Logger::log($conn, "HolidayDAL::loadById", "error", $e->getMessage());
+             Logger::log($conn, "UserRolesDAL::loadById", "error", $e->getMessage());
          }
      }
 
      public static function create($conn, $obj) {
          try {
-             $sql = "insert into holiday (Description, Date) 
-                     VALUES (" . "'" . $conn->escape($obj->Description) . "'" . ",'"
-                                     . $conn->escape($obj->Date) . "'" . ")";
-
-
-
-             $conn->query($sql,"Holiday::create", 0);
+             $sql = "insert into UserRoles (Role) 
+                     VALUES (" . "'" . $conn->escape($obj->Role) . "'" . ")";
+             $conn->query($sql,"UserRoles::create", 0);
              $conn->close();
          } 
          catch (\Exception $e) {
-             Logger::log($conn, "HolidayDAL::create", "error", $e->getMessage());
+             Logger::log($conn, "UserRolesDAL::create", "error", $e->getMessage());
         }
      }
 
      public static function update($conn, $obj) {
          try {
-             $sql = "UPDATE holiday 
-                     SET Description = '" . $conn->escape($obj->Description) . "', 
-                         Date = '" . $conn->escape($obj->Date) . "'
+             $sql = "UPDATE UserRoles 
+                     SET  Role = '" . $conn->escape($obj->Role) . "'
                      WHERE ID = '" . $conn->escape($obj->ID) . "'";
     
-                 $conn->query($sql, "Holiday::create", 0);
+                 $conn->query($sql, "UserRoles::create", 0);
          }  catch (\Exception $e) {
             Logger::log($conn, $e->getMessage());
         }
@@ -88,11 +82,11 @@ class Holiday {
 
      public static function delete($conn, $id) {
          try {
-             $sql = "DELETE FROM holiday WHERE ID=" . $conn->escape($id);
+             $sql = "DELETE FROM UserRoles WHERE ID=" . $conn->escape($id);
 
              $conn->query($sql);
          } catch (\Exception $e) {
-             Logger::log($conn, "HolidayDAL::delete", "error", $e->getMessage());
+             Logger::log($conn, "UserRolesDAL::delete", "error", $e->getMessage());
          }
      }
     }

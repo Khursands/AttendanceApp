@@ -9,7 +9,7 @@ namespace GM_HR {
         public function __construct($old = false) {
             $dbhost = "localhost";
             $dbuser = "root";
-            $dbpass = "root";
+            $dbpass = "";
             $dbname = "graymath";
 
             $this->connection = new \mysqli($dbhost, $dbuser, $dbpass, $dbname);
